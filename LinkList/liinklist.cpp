@@ -18,10 +18,17 @@ private:
     node *start;
 
 public:
-    linklist() { start = NULL; }
+    linklist()
+    {
+        start = NULL;
+        actions();
+    }
     linklist(int A[], int n);
     ~linklist();
+    void actions();
     void display(node *temp);
+    void insert(int data, int pos);
+    void Delete(int pos);
 };
 
 linklist::linklist(int A[], int n)
@@ -36,6 +43,7 @@ linklist::linklist(int A[], int n)
         last->next = temp;
         last = temp;
     }
+    actions();
 }
 
 linklist::~linklist()
@@ -52,7 +60,47 @@ void deletes(node *temp)
     }
 }
 
+void linklist ::actions(void)
+{
+    int choise;
+up:
+    cout << "Actions are : " << endl;
+    cout << "1 - Enter an Element" << endl;
+    cout << "2 - Delete an Element" << endl;
+    cout << "3 - Display list" << endl;
+    cout << "4 - Exit" << endl;
+    cin >> choise;
+    switch (choise)
+    {
+    case 1:
+        int data, pos;
+        cout << "Enter Data and Position :";
+        cin >> data >> pos;
+        insert(data, pos);
+        goto up;
+    case 2:
+        int pos;
+        cout << "Enter position : ";
+        cin >> pos;
+        Delete(pos);
+        goto up;
+    case 3:
+        display(start);
+        goto up;
+    default:
+        cout << " !!! E X I T I N G !!! " << endl;
+    }
+}
+
+void linklist::insert(int data, int pos)
+{
+}
+
 void linklist::display(node *temp)
 {
-    
+    while (temp != NULL)
+    {
+        cout << temp->data;
+        display(temp->next);
+    }
 }
