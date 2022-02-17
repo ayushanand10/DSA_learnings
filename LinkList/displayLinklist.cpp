@@ -44,6 +44,8 @@ public:
             return;
         cout << t->data<<" ";
         displayRecursive(t->next);
+        // // agr cout statement ko neche likhenge to ulta print ho jayega
+        // cout << t->data<<" ";
     }
 };
 
