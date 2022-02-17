@@ -38,6 +38,13 @@ public:
             t = t->next;
         }
     }
+    void displayRecursive(Node *t)
+    {
+        if (t == NULL)
+            return;
+        cout << t->data<<" ";
+        displayRecursive(t->next);
+    }
 };
 
 int main()
@@ -45,6 +52,7 @@ int main()
     linkList p;
     int A[] = {1, 62, 13, 9, 5}, n = 5;
     p.create(A, n);
-    p.displayIterative();
+    // p.displayIterative();
+    p.displayRecursive(first);
     return 0;
 }
