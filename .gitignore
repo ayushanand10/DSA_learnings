@@ -1,3 +1,5 @@
 *.vscode
 *.exe
 .gitignore
+*Rough.cpp
+*r.cpp
