@@ -42,10 +42,22 @@ public:
     {
         if (t == NULL)
             return;
-        cout << t->data<<" ";
+        cout << t->data << " ";
         displayRecursive(t->next);
         // // agr cout statement ko neche likhenge to ulta print ho jayega
         // cout << t->data<<" ";
+    }
+    ~linkList()
+    {
+        Node *last, *next;
+        last = first;
+        while (last != NULL)
+        {
+            next = last->next;
+            delete last;
+            last = next;
+        }
+        cout << "\nDestructor called";
     }
 };
 
