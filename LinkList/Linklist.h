@@ -1,64 +1,59 @@
-//  DRY RUN NEEDED
-
 #include <iostream>
 using namespace std;
 
-class node
-{
+class node{
 public:
     int data;
     node *next;
-    node()
-    {
+    node(int data){
+        this->data = data;
         next = NULL;
     }
 };
-class linkList
-{
-public:
-    node *first;
-    void create(int *A, int n)
-    {
-        node *last, *t;
-        first = new node;
-        first->data = A[0];
-        last = first;
-        for (int i = 1; i < n; i++)
-        {
-            t = new node;
-            t->data = A[i];
-            last->next = t;
-            last = t;
+
+node* input(int A[], int n){
+    node *head = NULL, *tail = NULL;
+    for (int i = 0; i < n; i++){
+            node *temp = new node(A[i]);
+        if(head == NULL){
+            head = temp;
+            tail = head;
         }
-        cout << "\nLinklist Created";
-    }
-    void display()
-    {
-        node *t;
-        t = first;
-        while (t)
-        {
-            cout << t->data << " ";
-            t = t->next;
+        else{
+            tail->next = temp;
+            tail = temp;
         }
-        cout << "\nDisplay () Ended";
     }
-    linkList(int *A, int n)
-    {
-        first = NULL;
-        create(A, n);
-        cout << "\nConstructor Called";
+    return head;
+}
+
+void display(node* head){
+    node *temp = head;
+    while (temp){
+        cout << temp->data<<" ";
+        temp = temp->next;
     }
-    ~linkList()
-    {
-        node *last, *next;
-        last = first;
-        while (last != NULL)
-        {
-            next = last->next;
-            delete last;
-            last = next;
+    cout << endl;
+}
+
+node* insert(node* head, int data, int after_pos){
+    if(after_pos==0){
+        node *newNode = new node(data);
+        newNode->next = head;
+        head = newNode;
+    }
+    else{
+        node *temp = head;
+        for (int i = 1; i < after_pos && temp != NULL; i++){
+            temp = temp->next;
         }
-        cout << "\nLinklist Deleted\n";
+        if(temp == NULL)
+            cout << "\n*******Invalid Position Entered*******\n";
+        else{
+            node *newNode = new node(data);
+            newNode->next = temp->next;
+            temp->next = newNode;
+        }
     }
-};
+    return head;
+}
