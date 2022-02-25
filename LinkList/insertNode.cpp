@@ -36,7 +36,7 @@ void display(node* head){
     cout << endl;
 }
 
-node* insert(node* head, int data, int after_pos){
+void insert(node* &head, int data, int after_pos){
     if(after_pos==0){
         node *newNode = new node(data);
         newNode->next = head;
@@ -55,12 +55,13 @@ node* insert(node* head, int data, int after_pos){
             temp->next = newNode;
         }
     }
-    return head;
 }
 
 int main(){
     int A[] = {5, 3, 8, 0, 4}, n = 5;
     node *head = input(A, n);
+
+    display(head);
 
     // head = insert(head, 15, 0);
     // display(head);
@@ -70,7 +71,8 @@ int main(){
     // display(head);
     // head = insert(head, 15, 5);
     // display(head);
-    head = insert(head, 15, 9);
+    // head = insert(head, 15, 9);
+    insert(head, 15, 1);
     display(head);
 
     return 0;
