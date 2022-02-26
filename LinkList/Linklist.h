@@ -57,3 +57,14 @@ node* insert(node* head, int data, int after_pos){
     }
     return head;
 }
+
+void Delete(node *&head){
+    node *p = head, *q = NULL;
+    while(p){
+        q = p;
+        p = p->next;
+        q->next = NULL;
+        delete q;
+    }
+    head = NULL;
+}
