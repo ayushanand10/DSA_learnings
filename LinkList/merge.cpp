@@ -2,41 +2,62 @@
 #include"Linklist.h"
 using namespace std;
 
-node *merge(node *h1, node *h2, int n, int m){
-    int A[n + m], i = 0;
-    while(h1 && h2){
-        if(h1->data < h2->data){
-            A[i++] = h1->data;
-            h1 = h1->next;
-        }
-        else{
-            A[i++] = h2->data;
-            h2 = h2->next;
-        }
+node *merge(node *head1, node *head2){
+    node *last = NULL, *first = head1, *second = head2, *final = NULL;
+
+    if (first->data < second->data){
+        final = first;
+        last = first;
+        first = first->next;
+        last->next = NULL;
     }
-    while(h1){
-        A[i++] = h1->data;
-        h1 = h1->next;
-    }
-    while(h2){
-        A[i++] = h2->data;
-        h2 = h2->next;
+    else{
+        final = second;
+        last = second;
+        second = second->next;
+        last->next = NULL;
     }
 
-    node *h3 = input(A, n + m);
-    return h3;
+    while(first && second){
+        if (first->data < second->data){
+            last->next = first;
+            last = first;
+            first = first->next;
+            last->next = NULL;
+        }
+        else{
+            last->next = second;
+            last = second;
+            second = second->next;
+            last->next = NULL;
+        }
+    }
+
+    if(first){
+        last->next = first;
+    }
+    if(second){
+        last->next = second;
+    }
+
+    return final;
 }
 
 int main(){
-    int A[] = {1, 4, 7, 8, 10}, n = 5;
-    int B[] = {0, 2, 5, 6, 11}, m = 5;
+    int A[] = {4, 7, 10}, n = 3;
+    int B[] = {2, 5, 6, 11, 13}, m = 5;
+    
     node *h1 = input(A, n);
+    cout << "l1 : ";
+    display(h1);
+
     node *h2 = input(B, m);
-    node *h3 = merge(h1, h2, n, m);
+    cout << "l2 : ";
+    display(h2);
+
+    node *h3 = merge(h1, h2);
+    cout << "After merging : ";
     display(h3);
-    Delete(h1);
-    Delete(h2);
-    Delete(h3);
-    display(h3);
+
     return 0;
 }
