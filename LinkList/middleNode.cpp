@@ -1,3 +1,5 @@
+/*  WE NEED TO FIND THE MIDDLE NODE OF A LINKLIST   */
+
 #include<iostream>
 #include "Linklist.h"
 using namespace std;
