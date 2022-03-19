@@ -44,6 +44,7 @@ void Enqueue(Queue *ob, int data){
     }
     else{
         ob->rear->next = t;
+        ob->rear = t;
     }
 }
 
@@ -73,6 +74,8 @@ int main(){
     cout << Dequeue(&q) << endl;
     Enqueue(&q, 10);
     Enqueue(&q, 20);
+    Enqueue(&q, 30);
+    Enqueue(&q, 40);
     Display(&q);
 
     cout << Dequeue(&q) << endl;
