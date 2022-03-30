@@ -1,90 +1,162 @@
-//      PROBLEM IN INORDER  
-#include<iostream>
-#include "BinaryTree.h"
+#include<bits/stdc++.h>
 using namespace std;
 
-class Tree{
+class Node{
 public:
-    TreeNode *root;
-
-    Tree(int data, Queue *Q){
-        root = new TreeNode(data);
-        Enqueue(Q, root);
+    Node *lchild;
+    int data;
+    Node *rchild;
+    Node(){
+        lchild = nullptr;
+        rchild = nullptr;
     }
 };
 
-void preOrder(TreeNode *T){
-    if(T==NULL){
-        return;
-    }
-    else{
-        cout << T->treeData << " ";
-        preOrder(T->left);
-        preOrder(T->right);
-    }
+class Tree{
+private:
+    Node *root;
+
+public:
+    Tree() { root = nullptr; }
+    ~Tree();
+    void CreateTree();
+    void Preorder(Node *p);
+    void Preorder() { Preorder(root); } // Passing Private Parameter in Argument
+    void Inorder(Node *p);
+    void Inorder() { Inorder(root); }
+    void Postorder(Node *p);
+    void Postorder() { Postorder(root); }
+    void Levelorder(Node *p);
+    void Levelorder() { Levelorder(root); }
+    int Height(Node *p);
+    int Height() { return Height(root); }
+};
+
+Tree::~Tree()
+{
+    // TODO
 }
 
-void postOrder(TreeNode *T){
-    if(T==NULL){
-        return;
-    }
-    else{
-        postOrder(T->left);
-        postOrder(T->right);
-        cout << T->treeData << " ";
-    }
-}
+void Tree::CreateTree(){
+    Node *p;
+    Node *t;
+    int x;
+    queue<Node *> q;
 
-void inOrder(TreeNode *T){
-    if(T==NULL){
-        return;
-    }
-    else{
-        postOrder(T->left);
-        cout << T->treeData << " ";
-        postOrder(T->right);
-    }
-}
+    root = new Node;
+    cout << "Enter root data: " << flush;
+    cin >> x;
+    root->data = x;
+    q.push(root);
 
-int main(){
-    Queue Q;
-    cout << "Enter Root data : ";
-    int rdata;
-    cin >> rdata;
-    Tree tree(rdata, &Q);
-    TreeNode *p = Dequeue(&Q);
-    while(p){
-        TreeNode *t;
-        cout << "Enter Left child value of : " << p->treeData << endl;
-        int ldata;
-        cin >> ldata;
-        if(ldata != -1){
-            t = new TreeNode(ldata);
-            p->left = t;
-            Enqueue(&Q, t);
+    while (!q.empty()){
+        p = q.front();
+        q.pop();
+
+        cout << "Enter left child data of " << p->data << ": " << flush;
+        cin >> x;
+        if (x != -1){
+            t = new Node;
+            t->data = x;
+            p->lchild = t;
+            q.push(t);
         }
 
-        cout << "Enter Right child value of : " << p->treeData << endl;
-        int rdata;
-        cin >> rdata;
-        if(rdata != -1){
-            t = new TreeNode(rdata);
-            p->right = t;
-            Enqueue(&Q, t);
+        cout << "Enter right child data of " << p->data << ": " << flush;
+        cin >> x;
+        if (x != -1){
+            t = new Node;
+            t->data = x;
+            p->rchild = t;
+            q.push(t);
+        }
+    }
+}
+
+void Tree::Preorder(Node *p){
+    if (p){
+        cout << p->data << ", ";
+        Preorder(p->lchild);
+        Preorder(p->rchild);
+    }
+}
+
+void Tree::Inorder(Node *p){
+    if (p){
+        Inorder(p->lchild);
+        cout << p->data << ", " << flush;
+        Inorder(p->rchild);
+    }
+}
+
+void Tree::Postorder(Node *p){
+    if (p){
+        Postorder(p->lchild);
+        Postorder(p->rchild);
+        cout << p->data << ", " << flush;
+    }
+}
+
+void Tree::Levelorder(Node *p){
+    queue<Node *> q;
+    cout << root->data << ", ";
+    q.push(root);
+
+    while (!q.empty()){
+        p = q.front();
+        q.pop();
+
+        if (p->lchild){
+            cout << p->lchild->data << ", ";
+            q.push(p->lchild);
         }
 
-        p = Dequeue(&Q);
+        if (p->rchild){
+            cout << p->rchild->data << ", ";
+            q.push(p->rchild);
+        }
     }
-    cout << "Tree successufully Created.\n";
+}
 
-    cout << "\nPre-order Output : ";
-    preOrder(tree.root);
+int Tree::Height(Node *p){
+    int l = 0;
+    int r = 0;
+    if (p == nullptr)
+        return 0;
 
-    cout << "\nPost-order Output : ";
-    postOrder(tree.root);
+    l = Height(p->lchild);
+    r = Height(p->rchild);
 
-    cout << "\nIn-order Output : ";
-    inOrder(tree.root);
+    if (l > r)
+        return l + 1;
+    else
+        return r + 1;
+}
+
+int main()
+{
+    Tree bt;
+
+    bt.CreateTree();
+    cout << endl;
+
+    cout << "Preorder: " << flush;
+    bt.Preorder();
+    cout << endl;
+
+    cout << "Inorder: " << flush;
+    bt.Inorder();
+    cout << endl;
+
+    cout << "Postorder: " << flush;
+    bt.Postorder();
+    cout << endl;
+
+    cout << "Levelorder: " << flush;
+    bt.Levelorder();
+    cout << endl;
+
+    cout << "Height: " << bt.Height() << endl;
 
     return 0;
 }
