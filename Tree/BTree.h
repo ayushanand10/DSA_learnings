@@ -20,13 +20,13 @@ public:
     Tree() { root = nullptr; }
     void CreateTree();
     void Preorder(Node *p);
-    void Preorder() { Preorder(root); } // Passing Private Parameter in Argument
+    void Preorder() { Preorder(root); cout << endl; } // Passing Private Parameter in Argument
     void Inorder(Node *p);
-    void Inorder() { Inorder(root); }
+    void Inorder() { Inorder(root); cout << endl; }
     void Postorder(Node *p);
-    void Postorder() { Postorder(root); }
+    void Postorder() { Postorder(root); cout << endl; }
     void Levelorder(Node *p);
-    void Levelorder() { Levelorder(root); }
+    void Levelorder() { Levelorder(root); cout << endl; }
     int Height(Node *p);
     int Height() { return Height(root); }
 };
