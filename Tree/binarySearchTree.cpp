@@ -62,6 +62,8 @@ Node *BST :: rInsert(Node *p, int key){
         p->lchild = rInsert(p->lchild, key);
     else
         p->rchild = rInsert(p->rchild, key);
+
+    return p;
 }
 
 Node *BST :: iInsert(Node *p, int key){
@@ -159,16 +161,18 @@ int main(){
     // t.Inorder();
 
     t.rInsert(40);
-    t.rInsert(50);
-    t.rInsert(30);
-    t.rInsert(25);
-    t.rInsert(45);
-    t.rInsert(20);
-    t.rInsert(35);
-    t.rInsert(32);
-    t.Inorder();
+    // t.rInsert(50);
+    // t.rInsert(30);
+    // t.rInsert(25);
+    // t.rInsert(45);
+    // t.rInsert(20);
+    // t.rInsert(35);
+    // t.rInsert(32);
+    // t.Inorder();
 
-    t.Delete(30);
-    t.Inorder();
+    // t.Delete(30);
+    // t.Inorder();
+
+    cout << t.Height() << endl;
     return 0;
 }
